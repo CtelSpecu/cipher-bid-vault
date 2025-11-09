@@ -190,7 +190,7 @@ export const useFHECounter = (parameters: {
       .then((value) => {
         console.log("[useFHECounter] getCount()=" + value);
         if (
-          sameChain.current(thisChainId) &&
+          sameChain.current?.(thisChainId) &&
           thisFheCounterAddress === fheCounterRef.current?.address
         ) {
           setCountHandle(value);
@@ -282,8 +282,8 @@ export const useFHECounter = (parameters: {
     const run = async () => {
       const isStale = () =>
         thisFheCounterAddress !== fheCounterRef.current?.address ||
-        !sameChain.current(thisChainId) ||
-        !sameSigner.current(thisEthersSigner);
+        !sameChain.current?.(thisChainId) ||
+        !sameSigner.current?.(thisEthersSigner);
 
       try {
         const sig: FhevmDecryptionSignature | null =
@@ -405,8 +405,8 @@ export const useFHECounter = (parameters: {
 
         const isStale = () =>
           thisFheCounterAddress !== fheCounterRef.current?.address ||
-          !sameChain.current(thisChainId) ||
-          !sameSigner.current(thisEthersSigner);
+          !sameChain.current?.(thisChainId) ||
+          !sameSigner.current?.(thisEthersSigner);
 
         try {
           const input = instance.createEncryptedInput(
